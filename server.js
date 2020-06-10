@@ -9,7 +9,8 @@ var server = prerender({
     "--disable-gpu",
     "--remote-debugging-port=9222",
     "--hide-scrollbars",
-    "--no-sandbox"
+    "--no-sandbox",
+    "--disk-cache-dir=/tmp"
   ]
 });
 
