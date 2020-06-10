@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-var prerender = require("prerender");
+const prerender = require("prerender");
+const fsCache = require('./plugins/filesystem-cache');
 
 // borrow from https://github.com/prerender/prerender/blob/master/server.js
 var server = prerender({
@@ -10,13 +11,14 @@ var server = prerender({
     "--remote-debugging-port=9222",
     "--hide-scrollbars",
     "--no-sandbox",
-    "--disk-cache-dir=/tmp"
-  ]
+    "--disk-cache-dir=/tmp/chromium",
+  ],
 });
 
 server.use(prerender.sendPrerenderHeader());
 server.use(prerender.blockResources());
 server.use(prerender.removeScriptTags());
 server.use(prerender.httpHeaders());
+server.use(fsCache);
 
 server.start();
